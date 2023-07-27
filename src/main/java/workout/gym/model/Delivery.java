@@ -1,4 +1,4 @@
-package workout.gym.domain;
+package workout.gym.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class Delivery {
     private Order order;
 
     @Embedded
-    private Address adress;
+    private Address address;
 
     private String deliveryName;
     private String deliveryPhone;

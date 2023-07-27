@@ -1,7 +1,7 @@
 package workout.gym.repository;
 
 import org.springframework.stereotype.Repository;
-import workout.gym.domain.User;
+import workout.gym.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,0 +1,106 @@
+/* 리셋 스타일 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* 헤더 스타일 */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    margin-left: 1rem;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+/* 모든 운동 정보 섹션 스타일 */
+.all-workout-info {
+    padding: 2rem;
+    text-align: center;
+}
+
+.all-workout-info h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.workout-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.workout-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.workout-img img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.workout-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.workout-info p {
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+/* 푸터 스타일 */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.footer-content p {
+    font-size: 0.8rem;
+}
+
+.social-icons a {
+    color: #fff;
+    margin-left: 0.5rem;
+}
+
+.social-icons i {
+    font-size: 1.2rem;
+}

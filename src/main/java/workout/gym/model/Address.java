@@ -1,7 +1,7 @@
-package workout.gym.domain;
+package workout.gym.model;
 
 import lombok.Getter;
-import lombok.Setter;
+
 import javax.persistence.Embeddable;
 
 @Embeddable

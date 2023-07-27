@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>헬스장 웹사이트 - 로그인</title>
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+<div class="login-container">
+  <form class="login-form" action="/login" method="post">
+    <h2>로그인</h2>
+    <div class="form-group">
+      <label for="username">아이디</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">비밀번호</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">로그인</button>
+  </form>
+</div>
+</body>
+</html>

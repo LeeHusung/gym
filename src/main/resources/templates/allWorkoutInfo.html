@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>헬스장 웹사이트 - 운동 정보</title>
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+<!-- 헤더 -->
+<header class="header">
+  <nav class="nav">
+    <h1 class="logo">Work&Out Balance</h1>
+    <ul class="nav-links">
+      <li><a href="#">모든운동정보</a></li>
+      <li><a href="#">운동 기구</a></li>
+      <li><a href="#">헬린이</a></li>
+      <li><a href="#">중급자</a></li>
+      <li><a href="#">상급자</a></li>
+      <li><a href="#">괴수</a></li>
+      <li><a href="#">로그인</a></li>
+      <li><a href="#">문의</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 운동 정보 섹션 -->
+<section class="exercise-section">
+  <h2>운동 정보</h2>
+  <ul class="exercise-list">
+    <!-- 운동 정보 리스트 -->
+    <li th:each="exercise : ${exerciseList}">
+      <div class="exercise-card">
+        <div class="exercise-img">
+          <img th:src="@{/images/__${exercise.image}__}" alt="운동 이미지">
+        </div>
+        <div class="exercise-info">
+          <h3 th:text="${exercise.name}"></h3>
+          <p th:text="${exercise.description}"></p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- 푸터 -->
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2023 헬스장 웹사이트. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
