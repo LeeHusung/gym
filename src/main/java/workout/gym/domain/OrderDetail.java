@@ -1,4 +1,4 @@
-package workout.gym.model;
+package workout.gym.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import static javax.persistence.FetchType.LAZY;
 @Setter
 public class OrderDetail {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_detail_name")
     private Long id;
 

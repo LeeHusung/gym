@@ -1,4 +1,4 @@
-package workout.gym.model;
+package workout.gym.domain;
 
 import lombok.Getter;
 
