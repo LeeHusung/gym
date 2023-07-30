@@ -1,0 +1,1 @@
+insert into `user` (`email`,`password`, `username`) values ('admin@admin.com', '1111', 'admin');
