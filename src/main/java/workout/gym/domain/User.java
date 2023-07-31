@@ -19,16 +19,17 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+    @Column(name = "username")
     private String username;
     private String password;
     private String email;
-    private String address;
+    private Address address;
     private String phone;
     private String profileImageUrl;
     private String role;
     private LocalDateTime createDate;
     private String nickname;
-    private String realName;
+    private String realname;
     private String gender;
     private String bio; //자기소개
 

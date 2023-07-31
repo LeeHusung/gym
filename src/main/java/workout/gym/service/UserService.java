@@ -22,7 +22,10 @@ public class UserService {
         return userRepository.findByUsername(username).filter(u -> u.getPassword().equals(password)).orElse(null);
 
     }
-
+    public User findByUsername(String username){
+        Optional<User> user = userRepository.findByUsername(username);
+        return user.orElse(null);
+    }
     @Transactional
     public Long join(User user) {
         userRepository.save(user);

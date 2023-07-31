@@ -5,39 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>헬스장 웹사이트 - 회원가입</title>
   <link rel="stylesheet" href="../css/join.css">
+  <style>
+    .field-error {
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+  </style>
 </head>
 <body>
 <div class="join-container">
-  <form class="join-form" action="/join" method="post">
+  <form class="join-form" action="/join" method="post" th:object="${joinForm}">
     <h2>회원가입</h2>
 
     <div class="form-group">
-      <label for="userPw">아이디</label>
-      <input type="text" id="userName" name="userName" required>
+      <label th:for="username">아이디</label>
+      <input type="text" th:field="*{username}" th:class="${#fields.hasErrors('username')}? 'field-error' : 'form-control'"
+             placeholder="아이디를 입력하세요">
+      <div class="field-error" th:errors="*{username}">
+        아이디 오류
+      </div>
     </div>
     <div class="form-group">
-      <label for="userPw">비밀번호</label>
-      <input type="password" id="userPw" name="userPw" required>
+      <label th:for="password">비밀번호</label>
+      <input type="password" th:field="*{password}" th:class="${#fields.hasErrors('password')}? 'field-error' : 'form-control'"
+              placeholder="비밀번호를 입력하세요">
+      <div class="field-error" th:errors="*{password}">
+        비밀번호 오류
+      </div>
     </div>
     <div class="form-group">
-      <label for="userName">이름</label>
-      <input type="text" id="realName" name="realName" required>
+      <label th:for="realname">이름</label>
+      <input type="text" th:field="*{realname}" th:class="${#fields.hasErrors('realname')}? 'field-error' : 'form-control'"
+             placeholder="이름을 입력하세요">
+      <div class="field-error" th:errors="*{realname}">
+        아이디 오류
+      </div>
     </div>
     <div class="form-group">
-      <label for="userNickname">닉네임</label>
-      <input type="text" id="userNickname" name="userNickname" required>
+      <label th:for="nickname">닉네임</label>
+      <input type="text" th:field="*{nickname}" th:class="${#fields.hasErrors('nickname')}? 'fieldError' : 'form-control'"
+             placeholder="닉네임을 입력하세요">
+      <div class="field-error" th:errors="*{nickname}">
+        아이디 오류
+      </div>
     </div>
     <div class="form-group">
-      <label for="userEmail">이메일</label>
-      <input type="email" id="userEmail" name="userEmail" required>
+      <label th:for="email">이메일</label>
+      <input type="email" th:field="*{email}" th:class="${#fields.hasErrors('email')}? 'fieldError' : 'form-control'"
+             placeholder="이메일을 입력하세요">
+      <div class="field-error" th:errors="*{email}">
+        아이디 오류
+      </div>
     </div>
     <div class="form-group">
-      <label for="userAddr">주소</label>
-      <input type="text" id="userAddr" name="userAddr" required>
+      <label th:for="city">도시</label>
+      <input type="text" th:field="*{city}" class="form-control"
+             placeholder="도시를 입력하세요">
     </div>
     <div class="form-group">
-      <label for="userPhone">전화번호</label>
-      <input type="tel" id="userPhone" name="userPhone" required>
+      <label th:for="street">거리</label>
+      <input type="text" th:field="*{street}" class="form-control"
+             placeholder="거리를 입력하세요">
+    </div>
+    <div class="form-group">
+      <label th:for="zipcode">우편번호</label>
+      <input type="text" th:field="*{zipcode}" class="form-control"
+             placeholder="우편번호를 입력하세요">
+    </div>
+    <div class="form-group">
+      <label th:for="phone">전화번호</label>
+      <input type="tel" th:field="*{phone}" th:class="${#fields.hasErrors('phone')}? 'fieldError' : 'form-control'"
+             placeholder="번호를 입력하세요">
+      <div class="field-error" th:errors="*{phone}">
+        아이디 오류
+      </div>
     </div>
     <button type="submit">가입하기</button>
   </form>

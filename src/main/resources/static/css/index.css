@@ -1,115 +1,134 @@
-/* 리셋 스타일 설정 */
-* {
+/* Reset CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+a {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
-/* 헤더 스타일 */
-.header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-}
-
-.nav-links {
     list-style: none;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+/* Global Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #333;
+    padding: 15px 0;
+    color: #fff;
+}
+
+.navbar .container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .nav-links li {
-    margin-left: 1rem;
+    display: inline-block;
+    margin-left: 15px;
 }
 
-.nav-links li a {
-    text-decoration: none;
+.nav-links a {
     color: #fff;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
 }
 
-/* 메인 스타일 */
-.main {
-    padding: 2rem;
-}
-
-/* 히어로 섹션 스타일 */
+/* Hero Section */
 .hero {
+    background-image: url('path/to/hero-image.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
     text-align: center;
-    padding: 4rem 0;
-    background-color: #f1f1f1;
+    padding: 200px 0;
 }
 
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 
 .hero p {
-    font-size: 1.2rem;
-    color: #777;
-    margin-bottom: 2rem;
+    font-size: 18px;
+    margin-bottom: 40px;
 }
 
-.cta-btn {
+.cta-button {
     display: inline-block;
-    background-color: #333;
+    background-color: #ff5722;
     color: #fff;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-/* 추천 운동 섹션 스타일 */
-.featured-exercises {
-    padding: 2rem 0;
+.cta-button:hover {
+    background-color: #f44336;
 }
 
-.featured-exercises h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+/* About Section */
+.about {
+    padding: 100px 0;
+    text-align: center;
+    background-color: #f9f9f9;
 }
 
-.exercise-cards {
-    display: grid;
+.about h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
 }
 
-/* 네비게이션 메뉴 스타일 */
-.nav-menu {
-    display: flex;
+.about p {
+    font-size: 18px;
+    color: #777;
+    line-height: 1.6;
 }
 
-.nav-menu li {
-    margin-left: 1rem;
+/* Featured Workouts Section */
+.featured-workouts {
+    padding: 100px 0;
+    text-align: center;
 }
 
-.nav-menu li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
+.featured-workouts h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.workout-card {
+    /* Workout Card Styling */
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    padding: 20px 0;
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+
+
+.footer p {
+    font-size: 14px;
 }

@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>main</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <body>
-로그인 성공 페이지
+<div th:replace="fragments/nav :: nav"></div>
+<div class="container">
+main page이므니다
+
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">로그아웃</button>
+    </form>
+
+
+</div>
+<div th:replace="fragments/footer :: footer" />
 </body>
 </html>

@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
       <label for="username">아이디</label>
-      <input type="text" id="username" name="username" th:field="*{username}">
+      <input type="text" id="username" name="username" th:field="*{username}" th:errorclass="field-error">
       <div class="field-error" th:errors="*{username}">
           아이디 오류
       </div>
@@ -35,6 +35,9 @@
     </div>
     <button type="submit">로그인</button>
   </form>
+  <div class="signup-link">
+    <p>아직 회원이 아니신가요? <a href="/join">회원가입</a></p>
+  </div>
 </div>
 </body>
 </html>
