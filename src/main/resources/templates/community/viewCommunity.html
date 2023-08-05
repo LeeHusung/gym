@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h3>communityTitle: <span th:text="${community.communityTitle}">communityTitle</span></h3>
+    <p>communityCategory: <span th:text="${community.communityCategory}">communityCategory</span></p>
+    <p>communityContent: <span th:text="${community.communityContent}">communityContent</span></p>
+    <!--    <p>첨부 파일: <span th:each="imageFile : ${item.itemImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"></span></p>-->
+
+    <h4>Images:</h4>
+    <img th:each="imageFile : ${community.communityImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+
+</div>
+</body>
+</html>

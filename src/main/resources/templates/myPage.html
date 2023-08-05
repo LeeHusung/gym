@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+
+<link rel="stylesheet" href="../css/myPage.css">
 <body>
-여기는 마이페이지 자리이지롱
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container">
+    <h1>Welcome to My Page</h1>
+    <div class="user-info" th:object="${user}">
+        <p><strong>Username:</strong> <span th:text="${user.username}">JohnDoe123</span></p>
+        <p><strong>Email:</strong> <span th:text="${user.email}">john.doe@example.com</span></p>
+        <p><strong>Address:</strong> <span th:text="${user.address}">123 Main St, City, Country</span></p>
+        <p><strong>Phone:</strong> <span th:text="${user.phone}">+1 123-456-7890</span></p>
+        <p><strong>Joined:</strong> <span th:text="${user.createDate}">2023-07-01 10:00 AM</span></p>
+        <p><strong>Nickname:</strong> <span th:text="${user.nickname}">JohnDoe</span></p>
+        <p><strong>Real Name:</strong> <span th:text="${user.realname}">John Doe</span></p>
+        <p><strong>Gender:</strong> <span th:text="${user.gender}">Male</span></p>
+        <p><strong>Bio:</strong> <span th:text="${user.bio}">I'm a fitness enthusiast!</span></p>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer" />
+
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <!-- Add your CSS link here -->
+</head>
+
+<body>
+<h2>Product Details</h2>
+<div>
+    <h3>Item Name: <span th:text="${item.itemName}">Item Name</span></h3>
+    <p>Category: <span th:text="${item.itemCategory}">Category</span></p>
+    <p>Price: <span th:text="${item.itemPrice}">Price</span>원</p>
+    <p>Item Info: <span th:text="${item.itemInfo}">Item Info</span></p>
+<!--    <p>첨부 파일: <span th:each="imageFile : ${item.itemImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"></span></p>-->
+
+    <h4>Images:</h4>
+    <img th:each="imageFile : ${item.itemImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+
+</div>
+</body>
+
+</html>

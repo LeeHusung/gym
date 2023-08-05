@@ -6,7 +6,7 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import workout.gym.domain.User;
+import workout.gym.domain.user.User;
 import workout.gym.SessionConst;
 
 import javax.servlet.http.HttpServletRequest;
