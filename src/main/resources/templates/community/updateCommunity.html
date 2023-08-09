@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<form th:action method="post" th:object="${communityUpdateForm}" enctype="multipart/form-data">
+    <div>
+        <label for="communityTitle">커뮤니티 제목:</label>
+        <input type="text" id="communityTitle" name="communityTitle" th:value="${communityUpdateForm.communityTitle}"
+               class="communityAddForm" th:errorclass="field-error" th:field="*{communityTitle}"/>
+        <div class="field-error" th:errors="*{communityTitle}">
+            제목 오류
+        </div>
+    </div>
+    <div>
+        <label for="communityCategory">커뮤니티 카테고리:</label>
+        <input type="text" id="communityCategory" name="communityCategory" th:value="${communityUpdateForm.communityCategory}"
+               class="communityAddForm" th:errorclass="field-error" th:field="*{communityCategory}"/>
+        <div class="field-error" th:errors="*{communityCategory}">
+            카테고리 오류
+        </div>
+    </div>
+    <div>
+        <label for="communityContent">커뮤니티 내용:</label>
+        <input type="text" id="communityContent" name="communityContent" th:value="${communityUpdateForm.communityContent}"
+               class="communityAddForm" th:errorclass="field-error" th:field="*{communityContent}"/>
+        <div class="field-error" th:errors="*{communityContent}">
+            내용 오류
+        </div>
+    </div>
+    <div>
+        <label for="communityImageFiles">커뮤니티 사진:</label>
+        <input type="file" multiple="multiple" id="communityImageFiles" name="communityImageFiles" th:value="${communityUpdateForm.communityImageFiles}"/>
+        <div th:each="imageFiles : ${communityUpdateForm.communityCurrentImageFiles}">
+            <img th:src="|/images/${imageFiles.getStoreFileName()}|" width="100" height="100">
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="수정완료" />
+    </div>
+</form>
+
+</body>
+</html>

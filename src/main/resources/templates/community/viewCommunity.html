@@ -6,14 +6,20 @@
 </head>
 <body>
 <div>
-    <h3>communityTitle: <span th:text="${community.communityTitle}">communityTitle</span></h3>
+    <h3>communityTitle: <span th:text="${community.communityTitle}">communityTitle</span>
+        <span th:if="${community.lastModifiedDate != null}">(수정된 파일. 수정 날짜 : <span th:text="${community.lastModifiedDate}"></span>)</span>
+    </h3>
     <p>communityCategory: <span th:text="${community.communityCategory}">communityCategory</span></p>
     <p>communityContent: <span th:text="${community.communityContent}">communityContent</span></p>
+    <p>communityCreatedDate: <span th:text="${community.createdDate}">communityCreatedDate</span></p>
     <!--    <p>첨부 파일: <span th:each="imageFile : ${item.itemImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"></span></p>-->
 
     <h4>Images:</h4>
     <img th:each="imageFile : ${community.communityImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
 
+
+    <button><a th:onclick="|location.href='@{{id}/update(id=${community.id})}'|">수정</a></button>
+    <button> 삭제 </button>
 </div>
 </body>
 </html>

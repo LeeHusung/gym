@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import workout.gym.domain.file.FileRepository;
-import workout.gym.domain.file.FileService;
 import workout.gym.domain.file.UploadFile;
 import workout.gym.domain.item.Item;
 import workout.gym.domain.item.ItemFileService;

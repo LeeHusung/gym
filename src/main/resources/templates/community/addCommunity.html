@@ -3,17 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
 community글 등록 공간
 
-<form th:action method="post" enctype="multipart/form-data">
+<form th:action method="post" th:object="${communityAddForm}" enctype="multipart/form-data">
     <ul>
         <li>작성자<input type="hidden" name="userId" th:value="${session.loginUser.getId()}" />
             <span th:text="${session.loginUser.getNickname()}"></span></li>
-        <li>제목<input type="text" name="communityTitle"></li>
-        <li>카테고리<input type="text" name="communityCategory"></li>
-        <li>내용<input type="text" name="communityContent"></li>
+        <li>제목<input type="text" name="communityTitle" class="communityAddForm" th:errorclass="field-error" th:field="*{communityTitle}"></li>
+        <div class="field-error" th:errors="*{communityTitle}">
+            제목 오류
+        </div>
+        <li>카테고리<input type="text" name="communityCategory" class="communityAddForm" th:errorclass="field-error" th:field="*{communityCategory}"></li>
+        <div class="field-error" th:errors="*{communityCategory}">
+            카테고리 오류
+        </div>
+        <li>내용<input type="text" name="communityContent" class="communityAddForm" th:errorclass="field-error" th:field="*{communityContent}"></li>
+        <div class="field-error" th:errors="*{communityContent}">
+            내용 오류
+        </div>
+<!--        <li>작성일<input type="datetime-local" name="communityCreatedDate"></li>-->
+
         <li>사진<input type="file" multiple="multiple" name="communityImageFiles"></li>
     </ul>
     <input type="submit"/>

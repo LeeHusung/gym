@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,5 +8,18 @@
 communityMain 입니다.
 
 <h2><a href="/community/new">글 등록하러 가기</a></h2>
+
+<ul th:each="community : ${communityList}">
+    <li>
+        <a th:href="@{/community/{id}(id=${community.id})}">
+        <strong>번호</strong> <span th:text="${community.id}"></span>
+        <strong>제목</strong> <span th:text="${community.communityTitle}"></span>
+        <strong>카테고리</strong> <span th:text="${community.communityCategory}"></span>
+        <strong>내용</strong> <span th:text="${community.communityContent}"></span>
+        <strong>저장일</strong> <span th:text="${community.createdDate}"></span>
+        <strong>작성자</strong> <span th:text="${community.user.nickname}"></span>
+        </a>
+    </li>
+</ul>
 </body>
 </html>

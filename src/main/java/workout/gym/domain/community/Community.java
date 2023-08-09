@@ -2,6 +2,7 @@ package workout.gym.domain.community;
 
 import lombok.Getter;
 import lombok.Setter;
+import workout.gym.domain.entity.BaseEntity;
 import workout.gym.domain.file.UploadFile;
 import workout.gym.domain.user.User;
 
@@ -12,7 +13,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
-public class Community {
+public class Community extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +30,8 @@ public class Community {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Community() {
+        super();
+    }
 }

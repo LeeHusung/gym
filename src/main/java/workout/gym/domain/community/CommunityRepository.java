@@ -7,6 +7,8 @@ import workout.gym.domain.item.Item;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 @Slf4j
@@ -23,5 +25,12 @@ public class CommunityRepository {
     public Community findById(Long id) {
         Community community = em.find(Community.class, id);
         return community;
+    }
+
+    public List<Community> findAll() {
+        String jpql = "select c from Community c";
+
+        TypedQuery<Community> query = em.createQuery(jpql, Community.class);
+        return query.getResultList();
     }
 }
