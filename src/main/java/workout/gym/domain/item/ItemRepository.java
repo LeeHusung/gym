@@ -2,9 +2,12 @@ package workout.gym.domain.item;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import workout.gym.domain.entity.Item;
+import workout.gym.domain.entity.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @Slf4j
@@ -21,5 +24,13 @@ public class ItemRepository {
     public Item findById(Long id) {
         Item item = em.find(Item.class, id);
         return item;
+    }
+
+//    public List<OrderItem> findAllByItemId(Long itemId) {
+//        return em.createQuery("select o from OrderItem o where o.id = :itemId", OrderItem.class).getResultList();
+//    }
+
+    public List<Item> findAll() {
+        return em.createQuery("select i from Item i", Item.class).getResultList();
     }
 }

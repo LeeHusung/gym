@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+나의 장바구니
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+<!--        <th>회원명</th>-->
+        <th>대표상품 이름</th>
+        <th>대표상품 장바구니 물건 가격</th>
+        <th>대표상품 장바구니 물건 수량</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="myBag : ${myBagList}">
+        <td th:text="${myBag.id}"></td>
+<!--        <td th:text="${myBag.user.nickname}"></td>-->
+        <td th:text="${myBag.orderItems[0].item.itemName}"></td>
+        <td th:text="${myBag.orderItems[0].orderPrice}"></td>
+        <td th:text="${myBag.orderItems[0].count}"></td>
+
+        <!--        <td>-->
+        <!--            <a th:if="${item.status.name() == 'ORDER'}" href="#"-->
+        <!--               th:href="'javascript:cancel('+${item.id}+')'"class="btn btn-danger">CANCEL</a>-->
+        <!--        </td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,12 +1,11 @@
-package workout.gym.domain.community;
+package workout.gym.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import workout.gym.domain.entity.BaseEntity;
-import workout.gym.domain.file.UploadFile;
-import workout.gym.domain.user.User;
+import workout.gym.web.community.form.CommunityAddForm;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
@@ -32,6 +31,15 @@ public class Community extends BaseEntity {
     private User user;
 
     public Community() {
-        super();
+    }
+    //생성 메서드
+
+    public static Community createCommunity(CommunityAddForm communityAddForm) {
+        Community community = new Community();
+        community.setCommunityTitle(communityAddForm.getCommunityTitle());
+        community.setCommunityCategory(communityAddForm.getCommunityCategory());
+        community.setCommunityContent(communityAddForm.getCommunityContent());
+        community.setCreatedDate(LocalDateTime.now());
+        return community;
     }
 }

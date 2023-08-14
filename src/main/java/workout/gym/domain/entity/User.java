@@ -1,12 +1,12 @@
-package workout.gym.domain.user;
+package workout.gym.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import workout.gym.domain.entity.Address;
-import workout.gym.domain.community.Community;
-import workout.gym.domain.order.Order;
+import workout.gym.domain.entity.Community;
+import workout.gym.domain.entity.Order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,6 +26,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    @Embedded
     private Address address;
     private String phone;
     private String profileImageUrl;
@@ -35,6 +36,10 @@ public class User {
     private String realname;
     private String gender;
     private String bio; //자기소개
+
+    @OneToOne
+    @JoinColumn(name = "myBag_id")
+    private MyBag myBag;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();

@@ -11,8 +11,17 @@ th:value="${session.loginUser.getId()}
     <ul>
         <li>상품명<input type="text" name="itemName"></li>
         <li>상품가격<input type="number" name="itemPrice"></li>
+        <li>상품개수<input type="number" name="itemCount"></li>
         <li>상품정보<input type="text" name="itemInfo"></li>
-        <li>상품카테고리<input type="text" name="itemCategory"></li>
+<!--        <li>상품카테고리<input type="text" name="itemCategory"></li>-->
+        <li>상품카테고리<select th:field="*{itemCategory}" class="form-control">
+            <option value="">상품 카테고리</option>
+            <option th:each="status : ${T(workout.gym.domain.entity.Category).values()}"
+                    th:value="${status}"
+                    th:text="${status}">option
+            </option>
+        </select>
+        </li>
         <li>상품사진<input type="file" multiple="multiple" name="itemImageFiles"></li>
     </ul>
     <input type="submit"/>

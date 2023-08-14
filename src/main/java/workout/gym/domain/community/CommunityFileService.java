@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import workout.gym.domain.entity.Community;
 import workout.gym.domain.file.FileRepository;
-import workout.gym.domain.file.UploadFile;
-import workout.gym.domain.user.User;
+import workout.gym.domain.entity.UploadFile;
 
 import java.io.File;
 import java.io.IOException;

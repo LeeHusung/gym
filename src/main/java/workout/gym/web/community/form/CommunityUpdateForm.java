@@ -2,7 +2,7 @@ package workout.gym.web.community.form;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-import workout.gym.domain.file.UploadFile;
+import workout.gym.domain.entity.UploadFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

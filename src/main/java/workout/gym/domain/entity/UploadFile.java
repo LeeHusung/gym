@@ -1,9 +1,7 @@
-package workout.gym.domain.file;
+package workout.gym.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import workout.gym.domain.community.Community;
-import workout.gym.domain.item.Item;
 
 import javax.persistence.*;
 

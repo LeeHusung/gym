@@ -7,6 +7,19 @@
 <body>
 헬스 기구(Item) 판매하는 곳
 
+<ul th:each="item : ${itemList}">
+    <li>
+        <a th:href="@{/items/{id}(id=${item.id})}">
+            <strong>번호</strong> <span th:text="${item.id}"></span>
+            <strong>제목</strong> <span th:text="${item.itemName}"></span>
+            <strong>카테고리</strong> <span th:text="${item.itemCategory}"></span>
+            <strong>내용</strong> <span th:text="${item.itemInfo}"></span>
+            <strong>저장일</strong> <span th:text="${item.createdDate}"></span>
+<!--            <strong>작성자</strong> <span th:text="${item.user.nickname}"></span>-->
+        </a>
+    </li>
+</ul>
+
 <h2><a href="/items/new">기구 등록하러 가기</a></h2>
 </body>
 </html>

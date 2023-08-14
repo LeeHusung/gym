@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import workout.gym.domain.user.User;
+import workout.gym.domain.entity.User;
 import workout.gym.domain.user.UserRepository;
 
 @RequiredArgsConstructor

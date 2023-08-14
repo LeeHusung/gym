@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import workout.gym.domain.entity.Address;
-import workout.gym.domain.user.User;
+import workout.gym.domain.entity.User;
 import workout.gym.domain.user.UserRepository;
 import workout.gym.domain.user.UserService;
 

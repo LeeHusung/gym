@@ -1,9 +1,8 @@
 package workout.gym.domain.community;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import workout.gym.domain.item.Item;
+import workout.gym.domain.entity.Community;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

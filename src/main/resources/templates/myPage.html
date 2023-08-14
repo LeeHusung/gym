@@ -20,6 +20,47 @@
         <p><strong>Bio:</strong> <span th:text="${user.bio}">I'm a fitness enthusiast!</span></p>
     </div>
 </div>
+
+<h3>주문 내역</h3>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>회원명</th>
+        <th>대표상품 이름</th>
+        <th>대표상품 주문가격</th>
+        <th>대표상품 주문수량</th>
+        <th>상태</th>
+        <th>일시</th>
+        <th>배송지 주소</th>
+        <th></th>
+        <th></th>
+        <th>배송상태</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orderList}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.user.nickname}"></td>
+        <td th:text="${order.orderItems[0].item.itemName}"></td>
+        <td th:text="${order.orderItems[0].orderPrice}"></td>
+        <td th:text="${order.orderItems[0].count}"></td>
+        <td th:text="${order.orderStatus}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.delivery.address.getCity()}"></td>
+        <td th:text="${order.delivery.address.getStreet()}"></td>
+        <td th:text="${order.delivery.address.getZipcode()}"></td>
+        <td th:text="${order.delivery.deliveryStatus}"></td>
+        <!--        <td>-->
+<!--            <a th:if="${item.status.name() == 'ORDER'}" href="#"-->
+<!--               th:href="'javascript:cancel('+${item.id}+')'"class="btn btn-danger">CANCEL</a>-->
+<!--        </td>-->
+    </tr>
+    </tbody>
+</table>
+
+<h2><a href="/myBag">장바구니로 이동</a></h2>
 <div th:replace="fragments/footer :: footer" />
 
 </body>

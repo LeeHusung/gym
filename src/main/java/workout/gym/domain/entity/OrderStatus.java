@@ -1,4 +1,4 @@
-package workout.gym.domain.order;
+package workout.gym.domain.entity;
 
 public enum OrderStatus {
     ORDER, CANCEL

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import workout.gym.domain.login.LoginService;
-import workout.gym.domain.user.User;
+import workout.gym.domain.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import static workout.gym.SessionConst.LOGIN_USER;
+import static workout.gym.common.SessionConst.LOGIN_USER;
 
 @Controller
 @RequiredArgsConstructor

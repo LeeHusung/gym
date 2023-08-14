@@ -2,7 +2,6 @@ package workout.gym.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import workout.gym.domain.order.Order;
 
 import javax.persistence.*;
 

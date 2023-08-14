@@ -2,8 +2,7 @@ package workout.gym.domain.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import workout.gym.domain.user.User;
+import workout.gym.domain.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
