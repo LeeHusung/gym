@@ -14,6 +14,7 @@ import workout.gym.domain.entity.Item;
 import workout.gym.domain.item.ItemFileService;
 import workout.gym.domain.item.ItemService;
 import workout.gym.web.item.form.ItemAddForm;
+import workout.gym.web.item.form.ItemUpdateForm;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -60,9 +61,35 @@ public class ItemController {
         return "item/viewItem";
     }
 
+    @GetMapping("/items/{id}/update")
+    public String updateForm(@PathVariable Long id, @ModelAttribute("itemUpdateForm") ItemUpdateForm itemUpdateForm) {
+        Item findItem = itemService.findById(id);
+        itemUpdateForm.setItemName(findItem.getItemName());
+        itemUpdateForm.setItemPrice(findItem.getItemPrice());
+        itemUpdateForm.setItemStock(findItem.getItemStock());
+        itemUpdateForm.setItemInfo(findItem.getItemInfo());
+        itemUpdateForm.setItemCurrentImageFiles(findItem.getItemImageFiles());
+        itemUpdateForm.setItemCategory(findItem.getItemCategory());
+        return "item/updateItem";
+    }
+
+    @PostMapping("/items/{id}/update")
+    public String update(@PathVariable Long id, ItemUpdateForm itemUpdateForm, RedirectAttributes redirectAttributes) throws IOException {
+        Item item = itemService.updateItem(id, itemUpdateForm);
+        redirectAttributes.addAttribute("itemId", item.getId());
+        return "redirect:/items/{itemId}";
+    }
+
+    @PostMapping("/items/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        itemService.delete(id);
+        return "redirect:/items";
+    }
+
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + itemfileService.getFullPath(filename));
     }
+
 }

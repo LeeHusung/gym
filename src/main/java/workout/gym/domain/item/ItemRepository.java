@@ -33,4 +33,11 @@ public class ItemRepository {
     public List<Item> findAll() {
         return em.createQuery("select i from Item i", Item.class).getResultList();
     }
+
+    public void delete(Item item) {
+        em.createQuery("delete UploadFile uf where uf.item = :item")
+                .setParameter("item", item)
+                .executeUpdate();
+        em.remove(item);
+    }
 }

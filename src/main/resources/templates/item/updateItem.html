@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>updateItem</title>
+</head>
+<body>
+<form th:action th:method="post" th:object="${itemUpdateForm}" enctype="multipart/form-data">
+    <div>
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName" th:field="*{itemName}" th:value="${itemUpdateForm.itemName}"/>
+    </div>
+    <div>
+        <label for="itemPrice">Item Price:</label>
+        <input type="number" id="itemPrice" name="itemPrice" th:field="*{itemPrice}" th:value="${itemUpdateForm.itemPrice}"/>
+    </div>
+    <div>
+        <label for="itemInfo">Item Info:</label>
+        <textarea id="itemInfo" name="itemInfo" th:field="*{itemInfo}" th:value="${itemUpdateForm.itemInfo}"></textarea>
+    </div>
+    <div>Item Category:
+        <select th:field="*{itemCategory}" class="form-control">
+            <option value="">상품 카테고리</option>
+            <option th:each="status : ${T(workout.gym.domain.entity.Category).values()}"
+                    th:value="${status}"
+                    th:text="${status}">option
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="itemStock">Item Stock:</label>
+        <input type="number" id="itemStock" name="itemStock" th:field="*{itemStock}" th:value="${itemUpdateForm.itemStock}"/>
+    </div>
+
+    <div>
+        <label for="itemUpdateImageFiles">Update Item Images:</label>
+        <input type="file" id="itemUpdateImageFiles" name="itemUpdateImageFiles" multiple="multiple" th:field="*{itemUpdateImageFiles}"
+               th:value="${itemUpdateForm.itemUpdateImageFiles}"/>
+        <div th:each="imageFiles : ${itemUpdateForm.itemCurrentImageFiles}">
+            <img th:src="|/images/${imageFiles.getStoreFileName()}|" width="100" height="100">
+        </div>
+    </div>
+    <button type="submit">수정</button>
+</form>
+</body>
+</html>

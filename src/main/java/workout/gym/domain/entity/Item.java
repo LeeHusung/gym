@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @DiscriminatorColumn(name = "dtype")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -30,7 +32,7 @@ public class Item extends BaseEntity{
 
     private int itemStock;
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "item", cascade = ALL)
     private List<UploadFile> itemImageFiles = new ArrayList<>();
 
     @OneToMany(mappedBy = "order")

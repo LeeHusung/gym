@@ -83,6 +83,12 @@ public class CommunityController {
         return "redirect:/community/{communityId}";
     }
 
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Long id) {
+        communityService.delete(id);
+        return "redirect:/community";
+    }
+
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {

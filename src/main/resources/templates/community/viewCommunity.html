@@ -19,7 +19,10 @@
 
 
     <button><a th:onclick="|location.href='@{{id}/update(id=${community.id})}'|">수정</a></button>
-    <button> 삭제 </button>
+    <form th:action="@{/community/{id}/delete(id=${community.id})}" th:method="post">
+        삭제
+        <input type="submit">
+    </form>
 </div>
 </body>
 </html>

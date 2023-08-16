@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import workout.gym.domain.entity.Community;
+import workout.gym.domain.entity.UploadFile;
 import workout.gym.domain.entity.User;
+import workout.gym.domain.file.FileRepository;
 import workout.gym.domain.user.UserRepository;
 import workout.gym.domain.user.UserService;
 import workout.gym.web.community.form.CommunityAddForm;
@@ -23,6 +25,7 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
     private final CommunityFileService communityFileService;
     private final UserRepository userRepository;
+    private final FileRepository fileRepository;
 
     @Transactional
     public Community save(CommunityAddForm communityAddForm) throws IOException {
@@ -56,5 +59,13 @@ public class CommunityService {
 
     public List<Community> findAll() {
         return communityRepository.findAll();
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Community findCommunity = communityRepository.findById(id);
+        if (findCommunity != null) {
+            communityRepository.delete(findCommunity);
+        }
     }
 }

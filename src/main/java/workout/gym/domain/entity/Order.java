@@ -61,7 +61,7 @@ public class Order {
         Order order = new Order();
         order.setUser(user);
         order.setDelivery(delivery);
-        order.delivery.setAddress(new Address("수원시", "청명로", "1234"));
+        order.delivery.setAddress(new Address("수원시", "청명로", "1234")); //유저가 입력한 값으로 주소 설정해야함.
         order.delivery.setDeliveryStatus(DeliveryStatus.READY);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);

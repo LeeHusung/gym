@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
@@ -23,7 +24,7 @@ public class Community extends BaseEntity {
     private String communityCategory;
     private String communityContent;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = ALL) //cascade ALL을 하고 안하고 차이가 뭐임? uploadFile 먼저 delete하고 community delete 사이에 select있던데. 일단 캡쳐따놓음.
     private List<UploadFile> communityImageFiles;
 
     @ManyToOne(fetch = LAZY)

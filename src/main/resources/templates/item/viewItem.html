@@ -46,6 +46,12 @@
 
 </form>
 
+<button><a th:onclick="|location.href='@{/items/{id}/update(id=${item.id})}'|">수정</a></button>
+
+<form th:action="@{/items/{id}/delete(id=${item.id})}" th:method="post">
+    삭제
+    <input type="submit">
+</form>
 <!--<h2><a href="/order/new">주문하기</a></h2>-->
 </body>
 

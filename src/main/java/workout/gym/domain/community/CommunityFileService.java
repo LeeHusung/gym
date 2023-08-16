@@ -56,6 +56,11 @@ public class CommunityFileService {
         return uploadFile;
     }
 
+    public void delete(UploadFile uploadFile) {
+        uploadFile.setCommunity(null);
+        fileRepository.delete(uploadFile);
+    }
+
     private String createStoreFileName(String originalFilename) {
         String uuid = UUID.randomUUID().toString();
         String ext = extractExt(originalFilename);
