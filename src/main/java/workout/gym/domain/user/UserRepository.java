@@ -16,9 +16,9 @@ public class UserRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public User save(User user) {
+    public Long save(User user) {
         em.persist(user);
-        return user;
+        return user.getId();
     }
 
     public User findById(Long id) {
@@ -35,16 +35,13 @@ public class UserRepository {
         return findAll().stream().filter(u -> u.getUsername().equals(username)).findFirst();
     }
 
-    public User findOne(Long id) {
-        return em.find(User.class, id);
-    }
 
     public List<User> findAll() {
         return em.createQuery("select u from User u", User.class).getResultList();
     }
 
     public List<User> findByRealName(String realname) {
-        return em.createQuery("select u from User u where u.realName = :realname", User.class)
+        return em.createQuery("select u from User u where u.realname = :realname", User.class)
                 .setParameter("realname", realname).getResultList();
     }
 }

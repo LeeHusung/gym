@@ -2,17 +2,16 @@ package workout.gym.web.login;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import workout.gym.domain.entity.Address;
-import workout.gym.domain.entity.User;
 import workout.gym.domain.user.UserRepository;
 import workout.gym.domain.user.UserService;
-
-import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,23 +27,28 @@ public class JoinController {
     }
 
     @PostMapping("/join")
-    public String join(@Valid JoinForm joinForm, BindingResult bindingResult) {
+    public String join(@Validated JoinForm joinForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "join";
         }
-
+        if (!joinForm.getPassword1().equals(joinForm.getPassword2())) {
+            bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
+            return "join";
+        }
         Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
 
-        User user = new User();
-        user.setUsername(joinForm.getUsername());
-        user.setPassword(joinForm.getPassword());
-        user.setRealname(joinForm.getRealname());
-        user.setEmail(joinForm.getEmail());
-        user.setNickname(joinForm.getNickname());
-        user.setPhone(joinForm.getPhone());
-        user.setAddress(address);
-        userService.save(user);
-        return "redirect:/main";
+        try {
+            userService.save(joinForm.getUserRole(), address, joinForm.getUsername(), joinForm.getPassword1(), joinForm.getEmail(), joinForm.getRealname(), joinForm.getNickname(), joinForm.getPhone());
+        }catch(DataIntegrityViolationException e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            return "join";
+        }catch(Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "join";
+        }
+        return "redirect:/";
     }
 }

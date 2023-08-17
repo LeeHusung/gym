@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:fragment="nav">
   <!-- Navbar -->
   <nav class="navbar">
@@ -11,13 +11,10 @@
         <li><a href="/nutrition">Nutrition</a></li>
         <li><a href="/community">Community</a></li>
         <li><a href="/myPage">MyPage</a></li>
-        <div>
-          <a
-                  th:href="${session.loginUser == null ? '/login' : '/logout'}">
-<!--            <img class="login_img" src="/resources/img/usertest.png" /> -->
-            <span th:text="${session.loginUser == null ? 'LOGIN' : 'LOGOUT'}"></span>
-          </a>
-        </div>
+          <li class="nav-item">
+              <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+              <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+          </li>
       </ul>
     </div>
   </nav>

@@ -1,1 +1,0 @@
-insert into `user` (`email`,`password`, `username`, `nickname`) values ('admin@admin.com', '1111', 'admin', '후후후');

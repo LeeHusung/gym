@@ -2,6 +2,7 @@ package workout.gym.web.login;
 
 import lombok.Getter;
 import lombok.Setter;
+import workout.gym.domain.entity.UserRole;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,11 +10,16 @@ import javax.validation.constraints.NotBlank;
 @Getter @Setter
 public class JoinForm {
 
-    @NotBlank(message = "회원 이름은 필수입니다.")
+    private UserRole userRole;
+
+    @NotBlank
     private String username;
 
     @NotBlank
-    private String password;
+    private String password1;
+
+    @NotBlank
+    private String password2;
 
     @NotBlank
     private String realname;

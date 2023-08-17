@@ -22,15 +22,22 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "username")
+
+    @Column(name = "username", unique = true)
     private String username;
+
     private String password;
+
+    @Column(unique = true)
     private String email;
+
     @Embedded
     private Address address;
     private String phone;
     private String profileImageUrl;
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
     private LocalDateTime createDate;
     private String nickname;
     private String realname;

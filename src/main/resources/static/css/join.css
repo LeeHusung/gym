@@ -1,3 +1,5 @@
+/* Your existing CSS styles here */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f1f1f1;
@@ -12,18 +14,17 @@ body {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 300px;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px; /* Adjusted max-width for wider form */
+    text-align: center;
+    margin: auto; /* Center horizontally */
 }
 
 .join-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.join-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    grid-gap: 10px; /* Gap between columns */
 }
 
 .form-group {
@@ -44,7 +45,14 @@ body {
     outline: none;
 }
 
+.field-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
 button {
+    grid-column: span 2; /* Button spans both columns */
     padding: 10px;
     background-color: #333;
     color: #fff;
