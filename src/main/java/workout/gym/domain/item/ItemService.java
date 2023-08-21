@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import workout.gym.common.exception.CanNotDeleteItemWithHasOrder;
 import workout.gym.domain.entity.Item;
 import workout.gym.domain.entity.UploadFile;
 import workout.gym.web.item.form.ItemAddForm;
@@ -63,6 +64,9 @@ public class ItemService {
     @Transactional
     public void delete(Long id) {
         Item findItem = itemRepository.findById(id);
+        if (findItem.getOrderItems() != null) {
+            throw new CanNotDeleteItemWithHasOrder("이 상품에 해당하는 주문이 있어서 삭제가 불가능합니다.");
+        }
         if (findItem != null) {
             itemRepository.delete(findItem);
         }

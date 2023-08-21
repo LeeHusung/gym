@@ -3,6 +3,7 @@ package workout.gym.web.community.form;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 @Data
 public class CommunityAddForm {
 
-    private Long userId; // user와 community 연관관계 설정용
+    @Min(value = 1, message = "유효한 사용자 ID 값이어야 합니다.")
+    private Long userId;
 
     @NotBlank
     @Size(min = 2, message = "두 글자 이상 적어주세요.")

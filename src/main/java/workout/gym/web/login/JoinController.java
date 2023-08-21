@@ -36,10 +36,9 @@ public class JoinController {
             bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
             return "join";
         }
-        Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
 
         try {
-            userService.save(joinForm.getUserRole(), address, joinForm.getUsername(), joinForm.getPassword1(), joinForm.getEmail(), joinForm.getRealname(), joinForm.getNickname(), joinForm.getPhone());
+            userService.save(joinForm);
         }catch(DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");

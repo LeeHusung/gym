@@ -6,6 +6,7 @@ import workout.gym.web.community.form.CommunityAddForm;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -31,10 +32,13 @@ public class Community extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "community", cascade = REMOVE) //질문 삭제하면 그에 달린 답변들도 삭제
+    private List<CommunityAnswer> communityAnswers = new ArrayList<>();
+
     public Community() {
     }
-    //생성 메서드
 
+    //생성 메서드
     public static Community createCommunity(CommunityAddForm communityAddForm) {
         Community community = new Community();
         community.setCommunityTitle(communityAddForm.getCommunityTitle());

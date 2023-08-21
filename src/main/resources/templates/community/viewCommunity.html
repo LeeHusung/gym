@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
 <div>
@@ -16,6 +23,25 @@
 
     <h4>Images:</h4>
     <img th:each="imageFile : ${community.communityImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+
+    <h5 th:text="|${#lists.size(community.communityAnswers)}개의 답변이 있습니다.|"></h5>
+    <div>
+        <ul>
+            <li th:each="answer : ${community.communityAnswers}" th:text="${answer.getContent()}"></li>
+        </ul>
+    </div>
+
+    <form th:action="@{|/communityAnswer/create/${community.id}|}" th:object="${CommunityAnswerAddForm}" method="post">
+<!--        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">-->
+<!--            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
+<!--        </div>-->
+        <textarea name="content" rows="15" th:field="*{content}"></textarea>
+        <div class="field-error" th:errors="*{content}">
+            내용 오류
+        </div>
+        <input type="submit" value="답변등록">
+    </form>
+
 
 
     <button><a th:onclick="|location.href='@{{id}/update(id=${community.id})}'|">수정</a></button>

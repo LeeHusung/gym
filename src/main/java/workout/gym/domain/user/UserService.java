@@ -20,17 +20,17 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public User save(UserRole userRole, Address address, String username, String password, String email, String realname, String nickname, String phone) {
+    public User save(JoinForm joinForm) {
         User user = new User();
-//        Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
-        user.setUserRole(userRole);
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setEmail(email);
-        user.setRealname(realname);
+        Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
+        user.setUserRole(joinForm.getUserRole());
+        user.setUsername(joinForm.getUsername());
+        user.setPassword(passwordEncoder.encode(joinForm.getPassword1()));
+        user.setEmail(joinForm.getEmail());
+        user.setRealname(joinForm.getRealname());
         user.setAddress(address);
-        user.setNickname(nickname);
-        user.setPhone(phone);
+        user.setNickname(joinForm.getNickname());
+        user.setPhone(joinForm.getPhone());
         userRepository.save(user);
         return user;
     }

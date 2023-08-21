@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
-    </style>
+<head th:replace="fragments/header :: header">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/addCommunity.css}" />
 </head>
 <body>
+<div th:replace="fragments/nav :: nav"></div>
 community글 등록 공간
 
 <form th:action method="post" th:object="${communityAddForm}" enctype="multipart/form-data">
     <ul>
-        <li>작성자<input type="hidden" name="userId" th:value="${session.loginUser.getId()}" />
-            <span th:text="${session.loginUser.getNickname()}"></span></li>
+<!--        <li>작성자<input type="hidden" name="userId" th:value="${session.loginUser.getId()}" />-->
+<!--            <span th:text="${session.loginUser.getNickname()}"></span></li>-->
+<!--        <li hidden="hidden" name="userId">작성자:<span th:text="${user.id}" th:field="*{userId}"></span></li> &lt;!&ndash; 사용자 정보 출력 &ndash;&gt;-->
+
+
         <li>제목<input type="text" name="communityTitle" class="communityAddForm" th:errorclass="field-error" th:field="*{communityTitle}"></li>
         <div class="field-error" th:errors="*{communityTitle}">
             제목 오류
@@ -35,5 +32,7 @@ community글 등록 공간
     </ul>
     <input type="submit"/>
 </form>
+<div th:replace="fragments/footer :: footer" />
+
 </body>
 </html>

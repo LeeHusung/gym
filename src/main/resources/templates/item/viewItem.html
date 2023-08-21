@@ -26,7 +26,8 @@
 <form th:action="@{/order/new}" method="post">
     <!-- Hidden input fields to include itemId and userId -->
     <input type="hidden" th:name="itemId" th:value="${item.id}" />
-    <input type="hidden" th:name="userId" th:value="${session.loginUser.getId()}" />
+    <input type="hidden" th:name="userId" th:value="${user.id}" />
+
 
     <!-- Input field for count -->
     <label for="count">Quantity:</label>
@@ -37,7 +38,7 @@
 
 <form th:action="@{/myBag/keepMyBack}" method="post">
     <input type="hidden" th:name="itemId" th:value="${item.id}" />
-    <input type="hidden" th:name="userId" th:value="${session.loginUser.getId()}" />
+    <input type="hidden" th:name="userId" th:value="${user.id}" />
 
     <!-- Input field for count -->
     <label for="count">Quantity:</label>
@@ -45,13 +46,22 @@
     <button type="submit">장바구니 담기</button>
 
 </form>
+<p>User Role: <span th:text="${user.userRole}">User Role</span></p>
 
-<button><a th:onclick="|location.href='@{/items/{id}/update(id=${item.id})}'|">수정</a></button>
+<button th:if="${user.userRole.value == T(workout.gym.domain.entity.UserRole).ADMIN.value}">
+    <a th:href="@{/items/{id}/update(id=${item.id})}">수정</a>
+</button>
 
-<form th:action="@{/items/{id}/delete(id=${item.id})}" th:method="post">
+
+<!-- 삭제 버튼 -->
+<form th:if="${user.userRole.value == T(workout.gym.domain.entity.UserRole).ADMIN.value}"
+      th:action="@{/items/{id}/delete(id=${item.id})}" th:method="post">
     삭제
     <input type="submit">
 </form>
+
+
+
 <!--<h2><a href="/order/new">주문하기</a></h2>-->
 </body>
 

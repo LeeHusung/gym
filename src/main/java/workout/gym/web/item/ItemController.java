@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import workout.gym.common.security.PrincipalDetails;
 import workout.gym.domain.entity.Item;
 import workout.gym.domain.item.ItemFileService;
 import workout.gym.domain.item.ItemService;
@@ -55,8 +57,9 @@ public class ItemController {
     }
 
     @GetMapping("/items/{id}")
-    public String item(Model model, @PathVariable Long id) {
+    public String item(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Item item = itemService.findById(id);
+        model.addAttribute("user", principalDetails.getUser());
         model.addAttribute("item", item);
         return "item/viewItem";
     }

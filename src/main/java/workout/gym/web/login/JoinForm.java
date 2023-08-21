@@ -1,5 +1,6 @@
 package workout.gym.web.login;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import workout.gym.domain.entity.UserRole;
@@ -7,7 +8,7 @@ import workout.gym.domain.entity.UserRole;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Getter @Setter
+@Data
 public class JoinForm {
 
     private UserRole userRole;

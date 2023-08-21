@@ -4,16 +4,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import workout.gym.common.security.PrincipalDetails;
 import workout.gym.domain.entity.Community;
 import workout.gym.domain.community.CommunityFileService;
 import workout.gym.domain.community.CommunityService;
+import workout.gym.domain.entity.User;
+import workout.gym.domain.user.UserRepository;
 import workout.gym.web.community.form.CommunityAddForm;
+import workout.gym.web.community.form.CommunityAnswerAddForm;
 import workout.gym.web.community.form.CommunityUpdateForm;
 
 import java.io.IOException;
@@ -28,6 +33,7 @@ public class CommunityController {
 
     private final CommunityService communityService;
     private final CommunityFileService communityFileService;
+    private final UserRepository userRepository;
 
     @GetMapping
     public String goCommunityMain(Model model) {
@@ -37,25 +43,26 @@ public class CommunityController {
     }
 
     @GetMapping("/new")
-    public String addCommunity(@ModelAttribute CommunityAddForm communityAddForm) {
+    public String addCommunity(@ModelAttribute CommunityAddForm communityAddForm, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        model.addAttribute("user", principalDetails.getUser());
         return "community/addCommunity";
     }
 
     @PostMapping("/new")
     public String saveCommunity(@Validated @ModelAttribute("communityAddForm") CommunityAddForm communityAddForm,
-                                BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes, @AuthenticationPrincipal PrincipalDetails principalDetails) throws IOException {
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "/community/addCommunity";
         }
-        Community community = communityService.save(communityAddForm);
+        Community community = communityService.save(communityAddForm, principalDetails);
         redirectAttributes.addAttribute("communityId", community.getId());
         return "redirect:/community/{communityId}";
     }
 
     @GetMapping("/{id}")
-    public String community(@PathVariable Long id, Model model) {
+    public String community(@PathVariable Long id, Model model, @ModelAttribute("CommunityAnswerAddForm") CommunityAnswerAddForm communityAnswerAddForm) {
         Community community = communityService.findById(id);
         model.addAttribute("community", community);
         return "community/viewCommunity";
