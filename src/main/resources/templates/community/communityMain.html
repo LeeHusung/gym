@@ -3,23 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/communityMain.css}" />
+
 </head>
 <body>
 communityMain 입니다.
 
 <h2><a href="/community/new">글 등록하러 가기</a></h2>
 
-<ul th:each="community : ${communityList}">
+<ul class="community-list" th:each="community : ${communityList}">
     <li>
         <a th:href="@{/community/{id}(id=${community.id})}">
-        <strong>번호</strong> <span th:text="${community.id}"></span>
-        <strong>제목</strong> <span th:text="${community.communityTitle}"></span>
-        <strong>카테고리</strong> <span th:text="${community.communityCategory}"></span>
-        <strong>내용</strong> <span th:text="${community.communityContent}"></span>
-        <strong>저장일</strong> <span th:text="${community.createdDate}"></span>
-<!--        <strong>작성자</strong> <span th:text="${community.user.nickname}"></span>-->
+            번호: <strong th:text="${community.id}"></strong><br>
+            제목: <strong th:text="${community.communityTitle}"></strong>
+            <strong class="text-danger small ms-2" style="font-size: small; color: red;" th:if="${#lists.size(community.communityAnswers) > 0}" th:text="${#lists.size(community.communityAnswers)}"></strong><br>
+            <strong th:if="${community.user != null}">작성자: <strong th:text="${community.user.nickname}"></strong><br></strong>
+            카테고리: <strong th:text="${community.communityCategory}"></strong><br>
+            내용: <strong th:text="${community.communityContent}"></strong><br>
+            저장일: <strong th:text="${#temporals.format(community.createdDate, 'yyyy-MM-dd HH:mm')}"></strong>
         </a>
+
     </li>
+
 </ul>
+<!-- 페이징처리 시작 -->
+<div th:if="${!communityList.isEmpty()}">
+    <ul class="pagination justify-content-center">
+        <!-- 이전 페이지 링크 -->
+        <li class="page-item" th:classappend="${!communityList.hasPrevious()} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?start=${communityList.getNumber() - 1}&end=${communityList.getSize()}|}">
+                <span>이전</span>
+            </a>
+        </li>
+
+        <!-- 페이지 숫자 링크 -->
+        <li th:each="page: ${#numbers.sequence(0, communityList.getTotalPages() - 1)}"
+            th:if="${page >= communityList.getNumber() - 5 and page <= communityList.getNumber() + 5}"
+            th:classappend="${page == communityList.getNumber()} ? 'active'"
+            class="page-item">
+            <a th:text="${page + 1}" class="page-link" th:href="@{|?start=${page}&end=${communityList.getSize()}|}"></a>
+        </li>
+
+        <!-- 다음 페이지 링크 -->
+        <li class="page-item" th:classappend="${!communityList.hasNext()} ? 'disabled'">
+            <a class="page-link" th:href="@{|?start=${communityList.getNumber() + 1}&end=${communityList.getSize()}|}">
+                <span>다음</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 페이징처리 끝 -->
+
 </body>
 </html>

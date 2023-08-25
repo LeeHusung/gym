@@ -38,7 +38,6 @@ public class CommunityFileService {
                 files.add(saveFile(multipartFile, community)); //파일들을 업로드하고 해당 파일들과 community 객체 간의 연관관계를 설정하는 역할을 하는 메서드.
             }
         }
-//        community.setCommunityImageFiles(files); //community과 파일들 간의 연관관계 설정 //이거는 community가 연관관계 주인이 아닌데 왜 이렇게 설정하지?
         fileRepository.saveAll(files);
         return files;
     }

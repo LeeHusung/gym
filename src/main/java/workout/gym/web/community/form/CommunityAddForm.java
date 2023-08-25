@@ -14,6 +14,8 @@ public class CommunityAddForm {
     @Min(value = 1, message = "유효한 사용자 ID 값이어야 합니다.")
     private Long userId;
 
+    private String username;
+
     @NotBlank
     @Size(min = 2, message = "두 글자 이상 적어주세요.")
     private String communityTitle;

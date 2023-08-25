@@ -1,0 +1,81 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.community-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px; /* Negative margin to counteract padding on li */
+    list-style: none;
+}
+
+.community-list li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px; /* Margin between items */
+    padding: 10px; /* Smaller padding */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(20% - 20px); /* Five items per row */
+}
+
+.community-list li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.community-list li a:hover {
+    color: #007bff;
+}
+
+.community-list li span {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    list-style: none;
+    margin: 0 5px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination li a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.pagination li.disabled a {
+    cursor: not-allowed;
+    background-color: #f2f2f2;
+    color: #999;
+}
+
+.pagination li.active a {
+    background-color: #007bff;
+    color: #fff;
+}

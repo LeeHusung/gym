@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<div>
+    <h5 class="my-3 border-bottom pb-2">답변 수정</h5>
+    <form th:action th:object="${communityAnswerAddForm}" method="post">
+        내용<input type="text" name="communityContent" class="communityAddForm" th:errorclass="field-error" th:field="*{content}"></li>
+        <div class="field-error" th:errors="*{content}">
+            내용 오류
+        </div>
+        <input type="submit" value="저장하기" class="btn btn-primary my-2">
+    </form>
+</div>
+</html>

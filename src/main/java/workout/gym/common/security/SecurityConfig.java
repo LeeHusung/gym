@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,13 +15,14 @@ import workout.gym.domain.entity.UserRole;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .antMatchers("/items/new/**").hasAuthority(UserRole.ADMIN.getValue()) // 예: "/admin/**" 패턴은 ADMIN 권한이 필요
-                        .antMatchers("/myPage/**", "/community/new/**").hasAnyAuthority(UserRole.USER.getValue(), UserRole.ADMIN.getValue())   // 예: "/user/**" 패턴은 USER, ADMIN 권한이 필요
+                        .antMatchers("/myPage/**", "/community/new/**", "/communityAnswer/create/**").hasAnyAuthority(UserRole.USER.getValue(), UserRole.ADMIN.getValue())   // 예: "/user/**" 패턴은 USER, ADMIN 권한이 필요
                         .anyRequest().permitAll())                 // 나머지 URL은 모두 접근 허용
 //                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .csrf((csrf) -> csrf //CSRF(Cross-Site Request Forgery) 공격을 방지하기 위해 사용되는 설정

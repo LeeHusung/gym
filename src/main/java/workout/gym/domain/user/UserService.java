@@ -5,10 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import workout.gym.common.exception.DataNotFoundException;
 import workout.gym.domain.entity.Address;
 import workout.gym.domain.entity.User;
 import workout.gym.domain.entity.UserRole;
 import workout.gym.web.login.JoinForm;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -38,5 +41,14 @@ public class UserService {
     public User findById(Long id) {
         User user = userRepository.findById(id);
         return user;
+    }
+
+    public User getUser(String username) {
+        Optional<User> findUser = userRepository.findByUsername(username);
+        if (findUser.isPresent()) {
+            return findUser.get();
+        } else {
+            throw new DataNotFoundException("findUser Not Found");
+        }
     }
 }

@@ -11,7 +11,11 @@ import workout.gym.domain.entity.Order;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter @Setter
@@ -53,4 +57,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Community> communities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<CommunityAnswer> communityAnswers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Recommendation> recommendations = new HashSet<>();
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,42 +13,93 @@
 </head>
 <body>
 <div>
+<!--    게시글 반복-->
     <h3>communityTitle: <span th:text="${community.communityTitle}">communityTitle</span>
-        <span th:if="${community.lastModifiedDate != null}">(수정된 파일. 수정 날짜 : <span th:text="${community.lastModifiedDate}"></span>)</span>
+        <span th:if="${community.lastModifiedDate != null}">(수정된 파일. 수정 날짜 : <span th:text="${#temporals.format(community.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></span>)</span>
     </h3>
+    <p>communityCreatedBy: <span th:text="${community.user.nickname}">communityCreatedBy</span></p>
     <p>communityCategory: <span th:text="${community.communityCategory}">communityCategory</span></p>
-    <p>communityContent: <span th:text="${community.communityContent}">communityContent</span></p>
-    <p>communityCreatedDate: <span th:text="${community.createdDate}">communityCreatedDate</span></p>
+    <p>communityContent: <span th:utext="${@commonUtil.markdown(community.communityContent)}">communityContent</span></p>
+    <p>communityCreatedDate: <span th:text="${#temporals.format(community.createdDate, 'yyyy-MM-dd HH:mm')}">communityCreatedDate</span></p>
     <!--    <p>첨부 파일: <span th:each="imageFile : ${item.itemImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"></span></p>-->
 
     <h4>Images:</h4>
     <img th:each="imageFile : ${community.communityImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
 
+<!--    답변 반복 시작-->
     <h5 th:text="|${#lists.size(community.communityAnswers)}개의 답변이 있습니다.|"></h5>
     <div>
         <ul>
-            <li th:each="answer : ${community.communityAnswers}" th:text="${answer.getContent()}"></li>
+            <li th:each="answer : ${community.communityAnswers}">
+                <a th:id="|answer_${answer.id}|"></a>
+                <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                   th:data-uri="@{|/communityAnswer/${answer.id}/recommend|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.recommendations)}"></span>
+                </a>
+                <span th:utext="${@commonUtil.markdown(answer.getContent())}"></span>
+                <span> | Created by: <span th:text="${answer.createdBy}"></span></span>
+                <span> | Created date: <span th:text="${#temporals.format(answer.createdDate, 'yyyy-MM-dd HH:mm')}"></span></span>
+                <span th:if="${answer.lastModifiedDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
+                    <span class="mb-2"> | LastModifiedDate <span th:text="${#temporals.format(answer.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></span></span>
+                </span>
+                <span class="my-3">
+                    <a th:href="@{|/communityAnswer/${answer.id}/edit|}" class="btn btn-sm btn-outline-secondary"
+                       sec:authorize="isAuthenticated()"
+                       th:if="${answer.user != null and #authentication.getPrincipal().getUsername() == answer.user.username}">수정</a>
+                    <a href="javascript:void(0);" th:data-uri="@{|/communityAnswer/${answer.id}/delete|}"
+                       class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                       th:if="${answer.user != null and #authentication.getPrincipal().getUsername() == answer.user.username}"
+                       th:text="삭제"></a>
+                </span>
+            </li>
+
         </ul>
     </div>
 
+<!--    답변 등록-->
     <form th:action="@{|/communityAnswer/create/${community.id}|}" th:object="${CommunityAnswerAddForm}" method="post">
-<!--        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">-->
-<!--            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />-->
-<!--        </div>-->
-        <textarea name="content" rows="15" th:field="*{content}"></textarea>
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
         <div class="field-error" th:errors="*{content}">
             내용 오류
         </div>
         <input type="submit" value="답변등록">
     </form>
 
-
-
-    <button><a th:onclick="|location.href='@{{id}/update(id=${community.id})}'|">수정</a></button>
-    <form th:action="@{/community/{id}/delete(id=${community.id})}" th:method="post">
-        삭제
-        <input type="submit">
-    </form>
+<!--    게시글 추천, 수정, 삭제-->
+    <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+       th:data-uri="@{|/community/${community.id}/recommend|}">
+        추천
+        <span class="badge rounded-pill bg-success" th:text="${#lists.size(community.recommendations)}"></span>
+    </a>
+    <button><a th:href="@{|/community/${community.id}/update|}"
+               sec:authorize="isAuthenticated()"
+               th:if="${community.user != null and #authentication.getPrincipal().getUsername() == community.user.username}">수정</a></button>
+    <a href="javascript:void(0)" th:data-uri="@{|/community/${community.id}/delete|}"
+        class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+        th:if="${community.user != null and #authentication.getPrincipal().getUsername() == community.user.username}"
+        th:text="삭제">
+<!--        href에 삭제 URL을 직접 사용하지 않고 이러한 방식을 사용하는 이유는 삭제 버튼을 클릭했을때 "정말로 삭제하시겠습니까?" 와 같은 확인 절차가 필요하기 때문-->
+    </a>
 </div>
+<script>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+    const recommend_elements = document.getElementsByClassName("recommend");
+    Array.from(recommend_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 추천하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 </body>
 </html>
