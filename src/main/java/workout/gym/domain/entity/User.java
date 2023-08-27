@@ -63,4 +63,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Recommendation> recommendations = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
 }

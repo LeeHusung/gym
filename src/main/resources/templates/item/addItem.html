@@ -4,16 +4,34 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}">
+    <style>
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
 상품 등록 form (사진 첨부 가능)
 th:value="${session.loginUser.getId()}
 <form th:action method="post" th:object="${itemAddForm}" enctype="multipart/form-data">
     <ul>
-        <li>상품명<input type="text" name="itemName"></li>
-        <li>상품가격<input type="number" name="itemPrice"></li>
-        <li>상품개수<input type="number" name="itemCount"></li>
-        <li>상품정보<input type="text" name="itemInfo"></li>
+        <li>상품명<input type="text" name="itemName" th:field="*{itemName}"></li>
+        <div class="field-error" th:errors="*{itemName}">
+            상품개수 오류
+        </div>
+        <li>상품가격<input type="number" name="itemPrice" th:field="*{itemPrice}"></li>
+        <div class="field-error" th:errors="*{itemPrice}">
+            상품개수 오류
+        </div>
+        <li>상품개수<input type="number" name="itemCount" th:field="*{itemCount}"></li>
+        <div class="field-error" th:errors="*{itemCount}">
+            상품개수 오류
+        </div>
+        <li>상품정보<input type="text" name="itemInfo" th:field="*{itemInfo}"></li>
+        <div class="field-error" th:errors="*{itemInfo}">
+            상품개수 오류
+        </div>
 <!--        <li>상품카테고리<input type="text" name="itemCategory"></li>-->
         <li>상품카테고리
             <select th:field="*{itemCategory}" class="form-control">

@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <style>
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
-    </style>
-</head>
+<head th:replace="fragments/header :: header" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
 <body>
+<div th:replace="fragments/nav :: nav"></div>
+
 <div>
 <!--    게시글 반복-->
     <h3>communityTitle: <span th:text="${community.communityTitle}">communityTitle</span>
@@ -25,6 +20,27 @@
 
     <h4>Images:</h4>
     <img th:each="imageFile : ${community.communityImageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+
+    <!-- 질문 댓글 Start -->
+    <div class="mt-3" th:if="${not #lists.isEmpty(community.comments)}">
+        <div th:each="comment,index : ${community.comments}" class="comment py-2 text-muted">
+            <span style="white-space: pre-line;" th:text="${comment.content}"></span>
+            <span th:if="${comment.lastModifiedDate != null}"
+                  th:text="| - ${comment.user.username}, ${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')} (수정: ${#temporals.format(comment.lastModifiedDate, 'yyyy-MM-dd HH:mm')})|"></span>
+            <span th:if="${comment.lastModifiedDate == null}"
+                  th:text="| - ${comment.user.username}, ${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}|"></span>
+            <a sec:authorize="isAuthenticated()"
+               th:if="${#authentication.getPrincipal().getUsername() == comment.user.username}"
+               th:href="@{|/comment/update/community/${comment.id}|}" class="small">수정</a>,
+            <a sec:authorize="isAuthenticated()"
+               th:if="${#authentication.getPrincipal().getUsername() == comment.user.username}"
+               href="javascript:void(0);" class="small delete" th:data-uri="@{|/comment/delete/community/${comment.id}|}">삭제</a>
+        </div>
+    </div>
+    <div>
+        <a th:href="@{|/comment/create/community/${community.id}|}" class="small"><small>댓글 추가 ..</small></a>
+    </div>
+    <!-- 질문 댓글 End -->
 
 <!--    답변 반복 시작-->
     <h5 th:text="|${#lists.size(community.communityAnswers)}개의 답변이 있습니다.|"></h5>
@@ -102,4 +118,5 @@
     });
 </script>
 </body>
+<!--<div th:replace="fragments/footer :: footer" />-->
 </html>

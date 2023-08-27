@@ -44,9 +44,11 @@ public class CommunityController {
     @GetMapping
     public String goCommunityMain(Model model,
                                   @RequestParam(value = "start", defaultValue = "0") int start,
-                                  @RequestParam(value = "end", defaultValue = "10") int end) {
-        Page<Community> communityList = communityService.getList(start, end);
+                                  @RequestParam(value = "end", defaultValue = "10") int end,
+                                  @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<Community> communityList = communityService.getList(start, end, kw);
         model.addAttribute("communityList", communityList);
+        model.addAttribute("kw", kw);
         return "community/communityMain";
     }
 

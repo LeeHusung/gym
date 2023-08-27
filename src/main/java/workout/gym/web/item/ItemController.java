@@ -43,7 +43,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/new")
-    public String saveItem(@Validated @ModelAttribute ItemAddForm itemAddForm, BindingResult bindingResult,
+    public String saveItem(@Validated @ModelAttribute("itemAddForm") ItemAddForm itemAddForm, BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {

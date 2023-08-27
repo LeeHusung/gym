@@ -5,10 +5,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.*;
 
 @Getter @Setter
@@ -33,6 +36,9 @@ public class CommunityAnswer extends BaseEntity {
 
     @OneToMany(mappedBy = "communityAnswer", cascade = ALL)
     private Set<Recommendation> recommendations = new HashSet<>();
+
+    @OneToMany(mappedBy = "communityAnswer", cascade = REMOVE)
+    private List<Comment> comments = new ArrayList<>();
 
     public CommunityAnswer() {
     }

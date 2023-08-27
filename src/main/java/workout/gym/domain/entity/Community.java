@@ -18,8 +18,7 @@ import static javax.persistence.FetchType.*;
 @Getter @Setter
 public class Community extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "community_id")
     private Long id;
 
@@ -39,6 +38,9 @@ public class Community extends BaseEntity {
 
     @OneToMany(mappedBy = "community", cascade = ALL)
     private Set<Recommendation> recommendations = new HashSet<>();
+
+    @OneToMany(mappedBy = "community", cascade = REMOVE)
+    private List<Comment> comments = new ArrayList<>();
 
     public Community() {
     }

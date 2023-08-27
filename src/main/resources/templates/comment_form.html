@@ -1,0 +1,21 @@
+<html>
+<style>
+    .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+</style>
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">댓글 등록</h5>
+    <form th:object="${commentForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div class="mb-3">
+<!--            <label for="content" class="form-label">내용</label>-->
+            <textarea th:field="*{content}" class="form-control" rows="10"></textarea>
+            <div class="field-error" th:errors="*{content}">
+                카테고리 오류
+            </div>
+        </div>
+        <input type="submit" value="저장하기" class="btn btn-primary my-2">
+    </form>
+</div>
