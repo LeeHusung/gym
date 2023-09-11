@@ -13,7 +13,6 @@ env:
   CODE_DEPLOY_APP_NAME: gym-codedeploy
   DEPLOYMENT_GROUP_NAME: gym-codedeploy-group
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
