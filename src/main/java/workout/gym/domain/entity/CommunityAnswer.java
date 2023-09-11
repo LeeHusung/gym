@@ -18,8 +18,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 public class CommunityAnswer extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "communityAnswer_id")
     private Long id;
 
