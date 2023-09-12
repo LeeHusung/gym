@@ -9,9 +9,9 @@ on:
 # 해당 yml 내에서 사용할 key - value
 env:
   PROJECT_NAME: gym
-  BUCKET_NAME: real-gym-bucket
-  CODE_DEPLOY_APP_NAME: gym-codedeploy
-  DEPLOYMENT_GROUP_NAME: gym-codedeploy-group
+  BUCKET_NAME: gym-bucket-2
+  CODE_DEPLOY_APP_NAME: gym
+  DEPLOYMENT_GROUP_NAME: gym-group
 
 jobs:
   build:
