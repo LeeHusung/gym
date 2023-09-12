@@ -49,9 +49,6 @@ jobs:
       - name: Code Deploy
         run: aws deploy create-deployment --application-name $CODE_DEPLOY_APP_NAME --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name $DEPLOYMENT_GROUP_NAME --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
 
-permissions:
-  id-token: write
-  contents: read
 
 #name: 워크플로우의 이름을 지정합니다. 이 경우 "CI & CD"로 설정되어 있으므로 CI 및 CD 작업을 수행하는 워크플로우임을 나타냅니다.
 #
