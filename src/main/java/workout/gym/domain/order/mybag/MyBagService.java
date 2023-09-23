@@ -22,16 +22,28 @@ public class MyBagService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public MyBag keepMyBag(Long userId, Long itemId, int count) {
-        User user = userRepository.findById(userId);
+    public void addMyBag(Long userId, Long itemId, int count) {
+        User findUser = userRepository.findById(userId);
         Item item = itemRepository.findById(itemId);
         OrderItem orderItem = OrderItem.keepMyBag(item, item.getItemPrice(), count);
 
-        MyBag myBag = MyBag.createMyBag(orderItem);
-        return myBagRepository.save(myBag);
+        findUser.getMyBag().addOrderItem(orderItem);
+        userRepository.save(findUser);
+    }
+
+    //장바구니에 추가
+    @Transactional
+    public void addIntoMyBag(MyBag myBag, OrderItem... orderItems) {
+        for (OrderItem orderItem : orderItems) {
+            myBag.addOrderItem(orderItem);
+        }
     }
 
     public List<MyBag> findAll() {
         return myBagRepository.findAll();
+    }
+
+    public MyBag findById(Long id) {
+        return myBagRepository.findById(id).get();
     }
 }

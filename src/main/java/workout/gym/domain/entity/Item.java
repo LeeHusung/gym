@@ -1,11 +1,12 @@
 package workout.gym.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import workout.gym.common.exception.NotEnoughStockException;
 import workout.gym.web.item.form.ItemAddForm;
+import workout.gym.web.item.form.ItemUpdateForm;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import static javax.persistence.CascadeType.*;
 @Entity
 @DiscriminatorColumn(name = "dtype")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Getter @Setter
-public class Item extends BaseEntity{
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
+public class Item extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
@@ -33,20 +36,27 @@ public class Item extends BaseEntity{
     private int itemStock;
 
     @OneToMany(mappedBy = "item", cascade = ALL)
+    @Setter
     private List<UploadFile> itemImageFiles = new ArrayList<>();
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    //생성 메서드
-    public static Item createItem(ItemAddForm itemAddForm) {
-        Item item = new Item();
-        item.setItemPrice(itemAddForm.getItemPrice());
-        item.setItemName(itemAddForm.getItemName());
-        item.setItemInfo(itemAddForm.getItemInfo());
-        item.setItemCategory(itemAddForm.getItemCategory());
-        item.setItemStock(itemAddForm.getItemCount());
-        return item;
+    @Builder
+    public Item(int itemPrice, String itemName, String itemInfo, Category itemCategory, int itemStock) {
+        this.itemPrice = itemPrice;
+        this.itemName = itemName;
+        this.itemInfo = itemInfo;
+        this.itemCategory = itemCategory;
+        this.itemStock = itemStock;
+    }
+
+    public void updateItem(int itemPrice, String itemName, String itemInfo, Category itemCategory, int itemStock) {
+        this.itemPrice = itemPrice;
+        this.itemName = itemName;
+        this.itemInfo = itemInfo;
+        this.itemCategory = itemCategory;
+        this.itemStock = itemStock;
     }
 
     public void addStock(int count) {

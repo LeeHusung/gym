@@ -29,12 +29,14 @@ public class CommunityAnswerService {
 
     @Transactional
     public void create(Community community, String content, User user) {
-        CommunityAnswer communityAnswer = new CommunityAnswer();
-        communityAnswer.setCommunity(community);
-        communityAnswer.setContent(content);
-        communityAnswer.setCreatedDate(LocalDateTime.now());
-        communityAnswer.setCreatedBy(user.getNickname());
-        communityAnswer.setUser(user);
+        CommunityAnswer communityAnswer = CommunityAnswer.builder()
+                .community(community)
+                .content(content)
+                .createdBy(user.getNickname())
+                .createdDate(LocalDateTime.now())
+                .user(user)
+                .build();
+
         communityAnswerRepository.save(communityAnswer);
     }
 
@@ -48,9 +50,9 @@ public class CommunityAnswerService {
     }
 
     @Transactional
-    public void editCA(CommunityAnswer communityAnswer, String content) {
-        communityAnswer.setContent(content);
-        communityAnswer.setLastModifiedDate(LocalDateTime.now());
+    public void editCA(Long id, String content) {
+        CommunityAnswer findCA = findCA(id);
+        findCA.updateCA(content, LocalDateTime.now());
     }
 
     @Transactional
@@ -67,9 +69,7 @@ public class CommunityAnswerService {
         if (findRecommendation != null) {
             return;
         }
-        Recommendation recommendation = new Recommendation();
-        recommendation.setCommunityAnswer(communityAnswer);
-        recommendation.setUser(user);
+        Recommendation recommendation = Recommendation.createRecommendationInCA(communityAnswer, user);
         recommendationRepository.save(recommendation);
     }
 }

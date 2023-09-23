@@ -1,14 +1,14 @@
 package workout.gym.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.*;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recommendation {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,19 @@ public class Recommendation {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    //생성
+    public static Recommendation createRecommendationInCA(CommunityAnswer communityAnswer, User user) {
+        Recommendation recommendation = new Recommendation();
+        recommendation.communityAnswer = communityAnswer;
+        recommendation.user = user;
+        return recommendation;
+    }
+
+    public static Recommendation createRecommendationInCommunity(Community community, User user) {
+        Recommendation recommendation = new Recommendation();
+        recommendation.community = community;
+        recommendation.user = user;
+        return recommendation;
+    }
 }

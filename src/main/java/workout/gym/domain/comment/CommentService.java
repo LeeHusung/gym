@@ -21,11 +21,12 @@ public class CommentService {
 
     @Transactional
     public Comment createInCommunity(Community community, String content, User user) {
-        Comment comment = new Comment();
-        comment.setUser(user);
-        comment.setContent(content);
-        comment.setCommunity(community);
-        comment.setCreatedDate(LocalDateTime.now());
+        Comment comment = Comment.builder()
+                .user(user)
+                .content(content)
+                .community(community)
+                .createdAt(LocalDateTime.now())
+                .build();
         commentRepository.save(comment);
         return comment;
     }
@@ -34,8 +35,7 @@ public class CommentService {
     public void updateCommentInCommunity(Long commentId, String content) {
         log.info("updateComment 시작");
         Comment comment = commentRepository.findById(commentId).get();
-        comment.setContent(content);
-        comment.setLastModifiedDate(LocalDateTime.now());
+        comment.updateComment(content);
     }
 
     public Optional<Comment> findById(Long id) {

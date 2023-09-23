@@ -1,7 +1,6 @@
 package workout.gym.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "order_item")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +22,12 @@ public class OrderItem {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "order_id")
+    @Setter
     private Order order;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "myBag_id")
+    @Setter
     private MyBag myBag;
 
     private int orderPrice;
@@ -35,9 +36,9 @@ public class OrderItem {
     //생성 메서드
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setItem(item);
-        orderItem.setOrderPrice(orderPrice);
-        orderItem.setCount(count);
+        orderItem.item = item;
+        orderItem.orderPrice = orderPrice;
+        orderItem.count = count;
 
         item.removeStock(count);
         return orderItem;
@@ -46,9 +47,9 @@ public class OrderItem {
     //장바구니 담기
     public static OrderItem keepMyBag(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setItem(item);
-        orderItem.setOrderPrice(orderPrice);
-        orderItem.setCount(count);
+        orderItem.item = item;
+        orderItem.orderPrice = orderPrice;
+        orderItem.count = count;
         return orderItem;
     }
 

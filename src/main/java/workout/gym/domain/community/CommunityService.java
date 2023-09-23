@@ -43,7 +43,10 @@ public class CommunityService {
     @Transactional
     public Community save(CommunityAddForm communityAddForm, Principal principal) throws IOException {
         User user = userService.getUser(principal.getName());
-        Community community = Community.createCommunity(communityAddForm , user);
+        Community community = Community.builder()
+                .communityAddForm(communityAddForm)
+                .user(user)
+                .build();
         communityRepository.save(community);
         if (communityAddForm.getCommunityImageFiles() != null) {
             communityFileService.saveFiles(communityAddForm.getCommunityImageFiles(), community);
@@ -55,10 +58,7 @@ public class CommunityService {
     public Community UpdateCommunity(Long id, CommunityUpdateForm communityUpdateForm) throws IOException {
         log.info("커뮤니티 업데이트 시작");
         Community findCommunity = communityRepository.findById(id).get();
-        findCommunity.setCommunityTitle(communityUpdateForm.getCommunityTitle());
-        findCommunity.setCommunityCategory(communityUpdateForm.getCommunityCategory());
-        findCommunity.setCommunityContent(communityUpdateForm.getCommunityContent());
-        findCommunity.setLastModifiedDate(LocalDateTime.now());
+        findCommunity.updateCommunity(communityUpdateForm);
 
         List<MultipartFile> newImageFiles = communityUpdateForm.getCommunityImageFiles();
         if (newImageFiles != null && !newImageFiles.isEmpty()) {
@@ -91,8 +91,6 @@ public class CommunityService {
             start = 0;
         }
         PageRequest pageable = PageRequest.of(start, end, Sort.by(sorts));
-//        PageRequest pageable = PageRequest.of(start, end, Sort.by(Sort.Direction.DESC, "username"));
-        Specification<Community> spec = search(kw);
         return communityRepository.findAllByKeyword(kw, pageable);
     }
 
@@ -121,12 +119,9 @@ public class CommunityService {
 
         Recommendation findRecommendation = recommendationRepository.findByCommunityAndUser(community, user);
         if (findRecommendation != null) {
-            // User has already recommended this community
             return;
         }
-        Recommendation recommendation = new Recommendation();
-        recommendation.setCommunity(community);
-        recommendation.setUser(user);
+        Recommendation recommendation = Recommendation.createRecommendationInCommunity(community, user);
         recommendationRepository.save(recommendation);
     }
 }

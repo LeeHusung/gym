@@ -1,10 +1,11 @@
 package workout.gym.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,8 +15,9 @@ import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.*;
 
-@Getter @Setter
+@Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommunityAnswer extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,20 @@ public class CommunityAnswer extends BaseEntity {
     @OneToMany(mappedBy = "communityAnswer", cascade = REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    public CommunityAnswer() {
+    //생성
+    @Builder
+    public CommunityAnswer(Community community, String content, LocalDateTime createdDate, String createdBy, User user) {
+        this.community = community;
+        this.content = content;
+        this.setCreatedDate(createdDate);
+        this.setCreatedBy(createdBy);
+        this.user = user;
+    }
+
+    //수정
+    public void updateCA(String content, LocalDateTime lastUpdateDate) {
+        this.content = content;
+        this.setLastModifiedDate(lastUpdateDate);
     }
 
 }

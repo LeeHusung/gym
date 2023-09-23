@@ -72,7 +72,7 @@ public class CommunityAnswerController {
         if (!communityAnswer.getUser().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        communityAnswerService.editCA(communityAnswer, communityAnswerAddForm.getContent());
+        communityAnswerService.editCA(communityAnswerId, communityAnswerAddForm.getContent());
         return "redirect:/community/" + communityAnswer.getCommunity().getId();
     }
 

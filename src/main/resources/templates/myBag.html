@@ -18,17 +18,22 @@
     </thead>
     <tbody>
     <tr th:each="myBag : ${myBagList}">
-        <td th:text="${myBag.id}"></td>
-<!--        <td th:text="${myBag.user.nickname}"></td>-->
-        <td th:text="${myBag.orderItems[0].item.itemName}"></td>
-        <td th:text="${myBag.orderItems[0].orderPrice}"></td>
-        <td th:text="${myBag.orderItems[0].count}"></td>
+        <td th:text="${myBagList.id}"></td>
+        <!-- 반복문을 사용하여 orderItems의 각 요소에 접근 -->
+        <th:block th:each="orderItem : ${myBagList.orderItems}">
+
+            <td th:text="${orderItem.item.itemName}"></td>
+            <td th:text="${orderItem.orderPrice}"></td>
+            <td th:text="${orderItem.count}"></td>
+
+        </th:block>
+    </tr>
 
         <!--        <td>-->
         <!--            <a th:if="${item.status.name() == 'ORDER'}" href="#"-->
         <!--               th:href="'javascript:cancel('+${item.id}+')'"class="btn btn-danger">CANCEL</a>-->
         <!--        </td>-->
-    </tr>
+<!--    </tr>-->
     </tbody>
 </table>
 </body>

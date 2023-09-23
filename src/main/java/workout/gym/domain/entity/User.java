@@ -1,12 +1,10 @@
 package workout.gym.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import workout.gym.domain.entity.Address;
 import workout.gym.domain.entity.Community;
 import workout.gym.domain.entity.Order;
+import workout.gym.web.login.JoinForm;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,8 +16,8 @@ import java.util.Set;
 import static javax.persistence.CascadeType.*;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class User {
 
@@ -48,7 +46,7 @@ public class User {
     private String gender;
     private String bio; //자기소개
 
-    @OneToOne
+    @OneToOne(cascade = ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "myBag_id")
     private MyBag myBag;
 
@@ -66,4 +64,36 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
+
+    @Builder
+    public User(UserRole userRole,
+                String username,
+                String password,
+                String email,
+                String realname,
+                Address address,
+                String nickname,
+                String phone) {
+        this.userRole = userRole;
+        this.username = username;
+        this.password =password;
+        this.email = email;
+        this.realname = realname;
+        this.address = address;
+        this.nickname = nickname;
+        this.phone = phone;
+        // MyBag 인스턴스 생성
+        MyBag myBag = new MyBag();
+
+        // 연관관계 설정
+        setMybag(myBag);
+    }
+
+    public void setMybag(MyBag myBag) {
+        if(this.myBag != null){
+            this.myBag.setUser(null);
+        }
+        myBag.setUser(this);
+        this.myBag= myBag;
+    }
 }

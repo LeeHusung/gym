@@ -24,16 +24,17 @@ public class UserService {
 
     @Transactional
     public User save(JoinForm joinForm) {
-        User user = new User();
         Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
-        user.setUserRole(joinForm.getUserRole());
-        user.setUsername(joinForm.getUsername());
-        user.setPassword(passwordEncoder.encode(joinForm.getPassword1()));
-        user.setEmail(joinForm.getEmail());
-        user.setRealname(joinForm.getRealname());
-        user.setAddress(address);
-        user.setNickname(joinForm.getNickname());
-        user.setPhone(joinForm.getPhone());
+        User user = User.builder()
+                .userRole(joinForm.getUserRole())
+                .username(joinForm.getUsername())
+                .password(passwordEncoder.encode(joinForm.getPassword1()))
+                .email(joinForm.getEmail())
+                .realname(joinForm.getRealname())
+                .address(address)
+                .nickname(joinForm.getNickname())
+                .phone(joinForm.getPhone())
+                .build();
         userRepository.save(user);
         return user;
     }

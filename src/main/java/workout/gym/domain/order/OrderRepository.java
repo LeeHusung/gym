@@ -1,5 +1,6 @@
 package workout.gym.domain.order;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import workout.gym.domain.entity.Order;
 
@@ -24,5 +25,11 @@ public class OrderRepository {
 
     public List<Order> findAll() {
         return em.createQuery("select o from Order o", Order.class).getResultList();
+    }
+
+    public List<Order> findByUsername(String username) {
+        return em.createQuery("select o from Order o where o.user.username = :username", Order.class)
+                .setParameter("username", username)
+                .getResultList();
     }
 }

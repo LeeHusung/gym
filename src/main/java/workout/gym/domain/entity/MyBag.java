@@ -13,7 +13,7 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyBag extends BaseEntity{
@@ -22,7 +22,8 @@ public class MyBag extends BaseEntity{
     @Column(name = "myBag_id")
     private Long id;
 
-    @OneToOne(mappedBy = "myBag", fetch = LAZY)
+    @OneToOne(mappedBy = "myBag", fetch = LAZY, cascade = ALL)
+    @Setter
     private User user;
 
     //여기서 cascade = ALL 옵션을 설정하면, 부모 엔티티(MyBag)의 변경 사항이 자동으로 자식 엔티티(OrderItem)에 전파
@@ -36,12 +37,13 @@ public class MyBag extends BaseEntity{
         orderItem.setMyBag(this);
     }
 
-    //생성 메서드
-    public static MyBag createMyBag(OrderItem... orderItems) {
-        MyBag myBag = new MyBag();
-        for (OrderItem orderItem : orderItems) {
-            myBag.addOrderItem(orderItem);
-        }
-        return myBag;
-    }
+    //    //생성 메서드
+//    public static MyBag createMyBag(OrderItem... orderItems) {
+//        MyBag myBag = new MyBag();
+//        for (OrderItem orderItem : orderItems) {
+//            myBag.addOrderItem(orderItem);
+//        }
+//        return myBag;
+//    }
+
 }

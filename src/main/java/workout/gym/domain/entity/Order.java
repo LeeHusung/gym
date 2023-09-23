@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "orders")
-@Getter @Setter
+@Getter
 public class Order {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,15 +59,15 @@ public class Order {
     //생성 메서드
     public static Order createOrder(User user, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
-        order.setUser(user);
-        order.setDelivery(delivery);
+        order.user = user;
+        order.delivery = delivery;
         order.delivery.setAddress(new Address("수원시", "청명로", "1234")); //유저가 입력한 값으로 주소 설정해야함.
         order.delivery.setDeliveryStatus(DeliveryStatus.READY);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
-        order.setOrderDate(LocalDateTime.now());
-        order.setOrderStatus(OrderStatus.ORDER);
+        order.orderDate = LocalDateTime.now();
+        order.orderStatus = OrderStatus.ORDER;
         return order;
     }
 
@@ -76,7 +76,7 @@ public class Order {
      * 주문 취소
      */
     public void cancel() {
-        this.setOrderStatus(OrderStatus.CANCEL);
+        this.orderStatus = OrderStatus.CANCEL;
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }

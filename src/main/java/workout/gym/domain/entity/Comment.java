@@ -1,14 +1,16 @@
 package workout.gym.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.*;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,19 @@ public class Comment extends BaseEntity{
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "communityAnswer_id")
     private CommunityAnswer communityAnswer;
+
+    @Builder
+    public Comment(Community community, String content, User user, LocalDateTime createdAt) {
+        this.community = community;
+        this.content = content;
+        this.user = user;
+        this.setCreatedDate(createdAt);
+    }
+
+    public void updateComment(String content) {
+        this.content = content;
+        this.setLastModifiedDate(LocalDateTime.now());
+    }
 
     public Long getQuestionId() {
         Long result = null;

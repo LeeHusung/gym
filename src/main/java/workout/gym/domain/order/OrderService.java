@@ -42,6 +42,10 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public List<Order> findByUsername(String username) {
+        return orderRepository.findByUsername(username);
+    }
+
     public void keepMyBack() {
     }
 }

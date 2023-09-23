@@ -1,8 +1,8 @@
 package workout.gym.domain.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import workout.gym.web.community.form.CommunityAddForm;
+import workout.gym.web.community.form.CommunityUpdateForm;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +15,8 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Community extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,17 +43,21 @@ public class Community extends BaseEntity {
     @OneToMany(mappedBy = "community", cascade = REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    public Community() {
+    @Builder
+    public Community(CommunityAddForm communityAddForm, User user) {
+        this.communityTitle = communityAddForm.getCommunityTitle();
+        this.communityCategory = communityAddForm.getCommunityCategory();
+        this.communityContent = communityAddForm.getCommunityContent();
+        this.setCreatedDate(LocalDateTime.now());
+        this.user = user;
     }
 
-    //생성 메서드
-    public static Community createCommunity(CommunityAddForm communityAddForm, User user) {
-        Community community = new Community();
-        community.setCommunityTitle(communityAddForm.getCommunityTitle());
-        community.setCommunityCategory(communityAddForm.getCommunityCategory());
-        community.setCommunityContent(communityAddForm.getCommunityContent());
-        community.setCreatedDate(LocalDateTime.now());
-        community.setUser(user);
-        return community;
+    //수정 메서드
+    public void updateCommunity(CommunityUpdateForm communityUpdateForm) {
+        this.communityTitle = communityUpdateForm.getCommunityTitle();
+        this.communityContent = communityUpdateForm.getCommunityContent();
+        this.communityCategory = communityUpdateForm.getCommunityCategory();
+        this.setLastModifiedDate(LocalDateTime.now());
     }
+
 }
