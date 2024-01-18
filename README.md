@@ -14,8 +14,6 @@
 - RestAPI
 - Spring Security
 
-https://github.com/LeeHusung/gym
-
 ## **어떤 프로젝트인가요?**
 
 - Spring Boot를 이용한 개인 프로젝트입니다.
@@ -24,7 +22,7 @@ https://github.com/LeeHusung/gym
 
 ## **구현 기능 및 제약조건**
 
-![gym DB diagram.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/66e9095e-4222-4836-9e72-ebd153a7943a/dab09b6c-4be1-476a-bb2a-63a969c291bd/gym_DB_diagram.png)
+![gym DB diagram](https://github.com/LeeHusung/gym/assets/128116509/7717d674-c4ae-460e-8599-0467a0d1d12a)
 
 주문
 
